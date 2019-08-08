@@ -9,16 +9,19 @@ def create_label(label, label_width):
 
 # label = create_label('Toronto', label_width=10)
 
-def build_row(value, label, width, mark):
+def build_row(value, label, width, mark, display_labels):
     '''Build a complete row of data'''
     marks = value * mark
-    marks = marks.ljust(width)
-    row = label + marks
+    row = marks.ljust(width)
+    if display_labels:
+        row = label + row
     return row
 
-# build_row(20, label, mark='🍑', width=20)
+# build_row(20, label, mark='🍑', width=20, display_labels=True)
+# build_row(20, label, mark='🍑', width=20, display_labels=False)
 
-def bar(values, labels, width=30, label_width=None, mark='▇'):
+def bar(values, labels, width=30, label_width=None, mark='▇',
+            display_labels=True):
     '''Create a simple bar chart'''
     if not label_width:
         label_width = max([len(l) for l in labels])
@@ -27,7 +30,7 @@ def bar(values, labels, width=30, label_width=None, mark='▇'):
     values = [round(v) for v in values]
     chart = ''
     for value, label in zip(values, labels):
-        row = build_row(value, label, width, mark)
+        row = build_row(value, label, width, mark, display_labels)
         chart += row
         chart += '\n'
     print(chart)
@@ -40,12 +43,11 @@ if __name__ == '__main__':
     })
     bar(df.y, df.x, width=20, label_width=10, mark='🙈')
     bar(df.y, df.x)
+    bar(df.y, df.x, display_labels=False, mark='🎑')
 
 # TODO:
 # add fractional marks
-# add/remove optional labels
 # add data to chart
-# posibility to send to std out?
 
 # DECIMAL_MARKS = {
 #     1: '▏',
