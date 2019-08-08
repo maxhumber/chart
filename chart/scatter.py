@@ -7,7 +7,7 @@ import numpy as np
 from matplotlib import pyplot as plt
 %matplotlib inline
 
-size = 100
+size = 50
 x = np.random.normal(1000, 500, size)
 y = x * 3 + 200 + np.random.normal(0, 700, size)
 
@@ -15,22 +15,29 @@ plt.scatter(x, y)
 
 #####
 
-width = 20
-height = 20
+width = 10
+height = 10
 
 matrix = [[' '] * width for _ in range(height)]
 
-wrs = RangeScaler((0, width))
-hrs = RangeScaler((0, height))
+wrs = RangeScaler((0, width-1))
+hrs = RangeScaler((0, height-1))
 
 x = wrs.fit_transform(x)
-x = [int(round(xi))-1 for xi in x]
+x = [int(round(xi)) for xi in x]
 y = wrs.fit_transform(y)
-y = [int(round(yi))-1 for yi in y]
+y = [int(round(yi)) for yi in y]
 
-mark = '⋄'
+list(zip(x, y))
+
+mark = '🍑'
 for (xi, yi) in zip(x, y):
     matrix[xi][yi] = mark
+
+matrix = [row[::-1] for row in matrix]
+
+xi
+yi
 
 def matrix_to_string(matrix):
     chart = ''
