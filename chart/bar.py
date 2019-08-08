@@ -3,7 +3,7 @@ import random
 import numpy as np
 import pandas as pd
 
-decimal_ticks = {
+DECIMAL_TICKS = {
     1: '▏',
     2: '▏',
     3: '▎',
@@ -14,6 +14,8 @@ decimal_ticks = {
     8: '▉',
     9: '█'
 }
+
+TICK = '▇'
 
 def scale(x, xin=(0, 1), xout=(0, 100)):
     return (x - xin[0]) / (xin[1] - xin[0]) * (xout[1] - xout[0]) + xout[0]
@@ -35,67 +37,46 @@ class RangeScaler:
         self.fit(y)
         return self.transform(y)
 
-def create_label(label, padding=10):
-    label = label[:padding]
-    label = label.rjust(padding)
+def create_label(label, label_width):
+    label = label[:label_width]
+    label = label.rjust(label_width)
     label += ': '
     return label
 
-def build_row(data, label, width=20):
-    row = data * TICK
+def build_row(data, label, tick, width):
+    row = data * tick
     row = row.ljust(width)
     row = label + row
     return row
 
-TICK = '▇'
+####
 
 df = pd.DataFrame({
     'x': ['Toronto', 'Hamilton', 'Carlisle', 'Hong Kong'],
     'y': [3_000_000, 300_000, 3_000, 5_000_000]
 })
-#
-# width = 40
-# labels = df.x.values.tolist()
-# max_label_len = max([len(l) for l in labels])
-#
-# labels = [create_label(l, padding=max_label_len) for l in labels]
-#
-# rs = RangeScaler((0, 20))
-# y = rs.fit_transform(df.y)
-# data = [round(yi) for yi in y]
 
-#
-# chart = ''
-# for d, l in zip(data, labels):
-#     row = build_row(d, l)
-#     chart += row
-#     chart += '\n'
-#
-# print(chart)
-
-def bar(data, labels, width=30, label_width=None):
+def bar(data, labels, width=30, label_width=None, tick='▇'):
     if not label_width:
         label_width = max([len(l) for l in labels])
-    labels = [create_label(l, padding=label_width) for l in labels]
+    labels = [create_label(l, label_width) for l in labels]
     data = RangeScaler((0, width)).fit_transform(data)
     data = [round(di) for di in data]
     chart = ''
     for d, l in zip(data, labels):
-        row = build_row(d, l)
+        row = build_row(d, l, tick, width)
         chart += row
         chart += '\n'
     print(chart)
 
+bar(df.y, df.x, width=20, label_width=10, tick='🙈')
 bar(df.y, df.x)
 
-
-
-
-
-
-
-
-
+# TODO:
+# add fractional ticks
+# add/remove optional labels
+# add data to chart
+# posibility to send to std out?
 
 
 
