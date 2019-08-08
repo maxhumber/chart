@@ -3,95 +3,19 @@ import random
 import numpy as np
 import pandas as pd
 
-# ANSI escape SGR Parameters color codes
-AVAILABLE_COLORS = {
-    'red': 91,
-    'blue': 94,
-    'green': 92,
-    'magenta': 95,
-    'yellow': 93,
-    'black': 90,
-    'cyan': 96
+decimal_ticks = {
+    1: '▏',
+    2: '▏',
+    3: '▎',
+    4: '▍',
+    5: '▌',
+    6: '▋',
+    7: '▊',
+    8: '▉',
+    9: '█'
 }
 
 TICK = '▇'
-SM_TICK = '▏'
-
-color = AVAILABLE_COLORS['cyan']
-
-r = 15
-c = r * 3
-
-matrix = [[' '] * c for _ in range(r)]
-chart = ''
-for row in matrix:
-    row_string = ''.join(row)
-    chart += row_string
-    chart += '\n'
-
-def matrix_to_string(matrix):
-    chart = ''
-    for row in matrix:
-        row_string = ''.join(row)
-        chart += row_string
-        chart += '\n'
-    return chart
-
-sys.stdout.write(f'\033[{color}m') # Start to write colorized.
-sys.stdout.write(chart)
-sys.stdout.write('\033[0m') # Back to original.
-
-def random_tick():
-    return random.choices([' ', '⋄'], weights=[0.5, 0.5])[0]
-
-from itertools import product
-
-list(product([1,2,3], [1, 2,3]))
-
-matrix = [[' '] * c for _ in range(r)]
-for (x, y) in product(range(r), range(c)):
-    tick = random_tick()
-    print(tick)
-    matrix[x][y] = tick
-
-chart = matrix_to_string(matrix)
-
-sys.stdout.write(f'\033[{color}m') # Start to write colorized.
-sys.stdout.write(chart)
-sys.stdout.write('\033[0m') # Back to original.
-
-size = 100
-x = np.random.normal(1000, 500, size)
-y = x * 3 + 200 + np.random.normal(0, 700, size)
-
-from matplotlib import pyplot as plt
-%matplotlib inline
-
-plt.scatter(x, y)
-
-df = pd.DataFrame({'x': x, 'y': y})
-df
-
-from sklearn.preprocessing import MinMaxScaler
-
-np.set_printoptions(suppress=True)
-
-def scale(x, xmin, xmax, tmin, tmax):
-    return (x - xmin) / (xmax - xmin) * (tmax - tmin) + tmin
-
-[scale(xi, x.min(), x.max(), 0, 20) for xi in x]
-
-def scale(x, xin=(0, 1), xout=(0, 100)):
-    return (x - xin[0]) / (xin[1] - xin[0]) * (xout[1] - xout[0]) + xout[0]
-
-
-#####
-
-
-import numpy as np
-size = 100
-x = np.random.normal(1000, 500, size)
-x = x.tolist()
 
 def scale(x, xin=(0, 1), xout=(0, 100)):
     return (x - xin[0]) / (xin[1] - xin[0]) * (xout[1] - xout[0]) + xout[0]
@@ -106,31 +30,42 @@ class RangeScaler:
         return self
 
     def transform(self, y):
-        return [scale(yi, (self.min_, self.max_), self.range) for yi in y]
+        y = [scale(yi, (self.min_, self.max_), self.range) for yi in y]
+        return y
 
-rs = RangeScaler(range=(0, 20))
-rs.fit(x)
-z = rs.transform(x)
+    def fit_transform(self, y):
+        self.fit(y)
+        return self.transform(y)
 
-[round(zi) for zi in z]
+def create_label(label, padding=10):
+    label = label[:padding]
+    label = label.rjust(padding)
+    label += ': '
+    return label
 
+def build_row(label, data):
+    label = create_label(label)
+    row = ''
+    row += label
+    row_data = data * TICK
+    row_data = row_data.ljust(20)
+    row += row_data
+    return row
 
+df = pd.DataFrame({
+    'x': ['Toronto', 'Hamilton', 'Carlisle', 'Hong Kong'],
+    'y': [3_000_000, 300_000, 3_000, 5_000_000]
+})
 
+rs = RangeScaler((0, 20))
+y = rs.fit_transform(df.y)
+data = [round(yi) for yi in y]
+labels = [create_label(l) for l in df.x]
 
+chart = ''
+for d, l in zip(data, labels):
+    row = build_row(l, d)
+    chart += row
+    chart += '\n'
 
-
-    # def fit_transform(self, y):
-    #     self.fit(y)
-    #     return self.transform(y)
-    #
-    # def inverse_transform(self, y):
-    #     decoder = {v:k for k, v in self.encoder.items()}
-    #     if not isinstance(y, list):
-    #         return decoder.get(y)
-    #     return [decoder.get(yi) for yi in y]
-
-
-
-
-
-#
+print(chart)
