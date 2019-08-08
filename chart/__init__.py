@@ -15,8 +15,6 @@ decimal_ticks = {
     9: '█'
 }
 
-TICK = '▇'
-
 def scale(x, xin=(0, 1), xout=(0, 100)):
     return (x - xin[0]) / (xin[1] - xin[0]) * (xout[1] - xout[0]) + xout[0]
 
@@ -43,29 +41,62 @@ def create_label(label, padding=10):
     label += ': '
     return label
 
-def build_row(label, data):
-    label = create_label(label)
-    row = ''
-    row += label
-    row_data = data * TICK
-    row_data = row_data.ljust(20)
-    row += row_data
+def build_row(data, label, width=20):
+    row = data * TICK
+    row = row.ljust(width)
+    row = label + row
     return row
+
+TICK = '▇'
 
 df = pd.DataFrame({
     'x': ['Toronto', 'Hamilton', 'Carlisle', 'Hong Kong'],
     'y': [3_000_000, 300_000, 3_000, 5_000_000]
 })
+#
+# width = 40
+# labels = df.x.values.tolist()
+# max_label_len = max([len(l) for l in labels])
+#
+# labels = [create_label(l, padding=max_label_len) for l in labels]
+#
+# rs = RangeScaler((0, 20))
+# y = rs.fit_transform(df.y)
+# data = [round(yi) for yi in y]
 
-rs = RangeScaler((0, 20))
-y = rs.fit_transform(df.y)
-data = [round(yi) for yi in y]
-labels = [create_label(l) for l in df.x]
+#
+# chart = ''
+# for d, l in zip(data, labels):
+#     row = build_row(d, l)
+#     chart += row
+#     chart += '\n'
+#
+# print(chart)
 
-chart = ''
-for d, l in zip(data, labels):
-    row = build_row(l, d)
-    chart += row
-    chart += '\n'
+def bar(data, labels, width=30, label_width=None):
+    if not label_width:
+        label_width = max([len(l) for l in labels])
+    labels = [create_label(l, padding=label_width) for l in labels]
+    data = RangeScaler((0, width)).fit_transform(data)
+    data = [round(di) for di in data]
+    chart = ''
+    for d, l in zip(data, labels):
+        row = build_row(d, l)
+        chart += row
+        chart += '\n'
+    print(chart)
 
-print(chart)
+bar(df.y, df.x)
+
+
+
+
+
+
+
+
+
+
+
+
+#
