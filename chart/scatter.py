@@ -15,7 +15,7 @@ plt.scatter(x, y)
 
 #####
 
-width = 10
+width = 30
 height = 10
 
 matrix = [[' '] * width for _ in range(height)]
@@ -25,14 +25,16 @@ hrs = RangeScaler((0, height-1))
 
 x = wrs.fit_transform(x)
 x = [int(round(xi)) for xi in x]
-y = wrs.fit_transform(y)
+y = hrs.fit_transform(y)
 y = [int(round(yi)) for yi in y]
 
 list(zip(x, y))
+max(x)
+max(y)
 
 mark = '🍑'
 for (xi, yi) in zip(x, y):
-    matrix[xi][yi] = mark
+    matrix[yi][xi] = mark
 
 matrix = [row[::-1] for row in matrix]
 
