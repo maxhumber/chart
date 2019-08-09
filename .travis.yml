@@ -1,0 +1,10 @@
+language: python
+python:
+- '3.6'
+deploy:
+  provider: pypi
+  user: maxhumber
+  password: $PYPI_PASS
+
+install:
+  - "pip install -e ."

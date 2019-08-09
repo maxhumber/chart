@@ -1,7 +1,3 @@
-# chart
+<img src="https://raw.githubusercontent.com/maxhumber/chart/master/images/logo.png" width="500px" alt="chart">
 
-Can't believe this was actually available on PyPi...
-
-README coming soon.
-
-Active Development
+Under Active Development
