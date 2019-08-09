@@ -1,5 +1,9 @@
-import random
-from preprocessing import RangeScaler
+# HACK: handle interactive development in Atom/Hydrogen
+# NOTE: activate at the root of the package directory
+try:
+    from .preprocessing import RangeScaler
+except ModuleNotFoundError:
+    from chart.preprocessing import RangeScaler
 
 def scale_values(values, scale):
     values = RangeScaler((0, scale-1)).fit_transform(values)
@@ -15,6 +19,7 @@ def matrix_to_string(matrix):
     return string
 
 def scatter(x, y, width=40, height=None, mark='•'):
+    '''Create a simple scattter plot'''
     if not height:
         height = int(width / 3 // 1)
     matrix = [[' '] * width for _ in range(height)]
@@ -25,16 +30,3 @@ def scatter(x, y, width=40, height=None, mark='•'):
     matrix = matrix[::-1]
     chart = matrix_to_string(matrix)
     print(chart)
-
-if __name__ == '__main__':
-    import numpy as np
-    from matplotlib import pyplot as plt
-    %matplotlib inline
-
-    size = 50
-    x = np.random.normal(1000, 500, size)
-    y = x * 3 + 200 + np.random.normal(0, 700, size)
-
-    plt.scatter(x, y)
-
-    scatter(x, y, mark='🐞')

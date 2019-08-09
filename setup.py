@@ -6,17 +6,17 @@ with open('README.md') as f:
 
 setup(
     name='chart',
-    version='0.0.0',
+    version='0.1.0',
     description='chart',
     long_description=long_description,
     long_description_content_type="text/markdown",
     classifiers=[
-        'Development Status :: 1 - Planning',
+        'Development Status :: 2 - Pre-Alpha',
         'License :: OSI Approved :: MIT License',
         'Programming Language :: Python :: 3',
     ],
     keywords=[
-        'chart'
+        'chart', 'graph', 'bar', 'scatter', 'visualization'
     ],
     url='https://github.com/maxhumber/chart',
     author='Max Humber',
