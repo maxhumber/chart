@@ -19,12 +19,22 @@ def build_row(value, label, width, mark):
     row = label + row
     return row
 
-def bar(values, labels, width=30, label_width=None, mark='▇'):
-    '''Create a simple bar chart'''
+def bar(x, y, width=30, label_width=None, mark='▇'):
+    '''A simple bar chart that prints to the console
+
+    :param x: list, array or series of numeric values
+    :param y: list, array or series of labels for the numeric values
+    :param width: integer for the character length of the x values
+    :param label_width: integer for the label character length
+    :param mark: unicode symbol to mark data values
+
+    >>> from chart import bar
+    >>> bar(x = [100, 80, 20, 60], ['A', 'B', 'C', 'D'])
+    '''
     if not label_width:
-        label_width = max([len(l) for l in labels])
-    labels = [create_label(l, label_width) for l in labels]
-    values = RangeScaler((0, width)).fit_transform(values)
+        label_width = max([len(l) for l in y])
+    labels = [create_label(l, label_width) for l in y]
+    values = RangeScaler((0, width)).fit_transform(x)
     values = [round(v) for v in values]
     chart = ''
     for value, label in zip(values, labels):
