@@ -1,11 +1,11 @@
-# HACK: handle interactive development in Atom/Hydrogen
-# NOTE: activate at the root of the package directory
+# HACK: to enable interactive development in Atom/Hydrogen
 try:
     from .preprocessing import RangeScaler
 except ModuleNotFoundError:
     from chart.preprocessing import RangeScaler
 
 def scale_values(values, scale):
+    '''Reusable (x, y) RangeScaler with rounding'''
     values = RangeScaler((0, scale-1)).fit_transform(values)
     values = [int(round(v)) for v in values]
     return values
@@ -19,8 +19,7 @@ def matrix_to_string(matrix):
     return string
 
 def scatter(x, y, width=40, height=None, mark='•'):
-    '''
-    Create a simple scattter plot
+    '''A simple scatter plot that prints to the console
     >>> scatter(range(0, 20), range(0, 20))
     '''
     if not height:

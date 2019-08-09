@@ -5,7 +5,7 @@ with open('README.md') as f:
 
 setup(
     name='chart',
-    version='0.1.2',
+    version='0.1.3',
     description='chart',
     long_description=long_description,
     long_description_content_type="text/markdown",

@@ -1,5 +1,4 @@
-# HACK: handle interactive development in Atom/Hydrogen
-# NOTE: activate at the root of the package directory
+# HACK: to enable interactive development in Atom/Hydrogen
 try:
     from .preprocessing import RangeScaler
 except ModuleNotFoundError:
@@ -30,6 +29,18 @@ def bar(x, y, width=30, label_width=None, mark='▇'):
 
     >>> from chart import bar
     >>> bar(x=[100, 80, 20, 60], y=['A', 'B', 'C', 'D'])
+    A: ▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇
+    B: ▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇
+    C: ▇▇▇▇▇▇
+    D: ▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇
+    >>> bar(
+        x=[1e6, 5e6, 3e6, 1e7],
+        y=['Carlisle', 'Waterloo', 'Exeter', 'Toronto'],
+        mark='🍑', width=15, label_width=9)
+     Carlisle: 🍑🍑
+     Waterloo: 🍑🍑🍑🍑🍑🍑🍑🍑
+       Exeter: 🍑🍑🍑🍑
+      Toronto: 🍑🍑🍑🍑🍑🍑🍑🍑🍑🍑🍑🍑🍑🍑🍑
     '''
     if not label_width:
         label_width = max([len(l) for l in y])
