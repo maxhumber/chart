@@ -10,9 +10,16 @@ setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     classifiers=[
-        'Development Status :: 2 - Pre-Alpha',
+        'Development Status :: 3 - Alpha',
+        'Intended Audience :: Developers',
+        'Intended Audience :: Education',
+        'Intended Audience :: Science/Research',
         'License :: OSI Approved :: MIT License',
+        'Natural Language :: English',
         'Programming Language :: Python :: 3',
+        'Topic :: Artistic Software',
+        'Topic :: Multimedia :: Graphics',
+        'Topic :: Scientific/Engineering :: Visualization',
     ],
     keywords=[
         'chart', 'graph', 'bar', 'scatter', 'visualization'

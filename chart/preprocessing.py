@@ -1,11 +1,6 @@
 class RangeScaler:
     '''A scaler to coerce values to a target output range
 
-    >>> x = [100, 30, 35, 60, 120, 70, 120]
-    >>> rs = RangeScaler()
-    >>> rs.fit_transform(x)
-    [78, 0, 6, 33, 100, 44, 100]
-
     >>> rs = RangeScaler(out_range=(0, 50), floor=0, round=False)
     >>> rs.fit(x)
     >>> rs.transform([18, 24, 75])
@@ -37,3 +32,24 @@ class RangeScaler:
 
 def scale(x, o=(0, 100), i=(0, 1)):
     return (x - i[0]) / (i[1] - i[0]) * (o[1] - o[0]) + o[0]
+
+class Binarizer:
+    def __init__(self, bins=5):
+        self.bins = bins
+
+    def fit(self, y):
+        self.min_ = min(y)
+        self.max_ = max(y)
+        return self
+
+    def transform(self, y):
+        y = [bin(yi, self.bins, self.min_, self.max_) for yi in y]
+        y = [yi - 1 if yi == self.bins else yi for yi in y]
+        return y
+
+    def fit_transform(self, y):
+        self.fit(y)
+        return self.transform(y)
+
+def bin(x, bins, min_, max_):
+    return int(bins * ((x - min_) / (max_ - min_)))

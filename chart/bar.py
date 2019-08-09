@@ -46,10 +46,9 @@ def bar(x, y, width=30, label_width=None, mark='▇'):
         label_width = max([len(l) for l in y])
     labels = [create_label(l, label_width) for l in y]
     values = RangeScaler((0, width), 0).fit_transform(x)
-    values = [round(v) for v in values]
-    chart = ''
+    string_chart = ''
     for value, label in zip(values, labels):
-        row = build_row(value, label, width, mark)
-        chart += row
-        chart += '\n'
-    print(chart)
+        string_row = build_row(value, label, width, mark)
+        string_chart += string_row
+        string_chart += '\n'
+    print(string_chart)

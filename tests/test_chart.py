@@ -1,4 +1,6 @@
-from chart import RangeScaler
+import sys, io
+
+from chart import RangeScaler, scatter, bar
 from chart import bar, scatter
 
 def test_range_scaler():
@@ -10,7 +12,6 @@ def test_range_scaler():
 
 def test_scatter():
     # redirect sys.stdout to a buffer
-    import sys, io
     stdout = sys.stdout
     sys.stdout = io.StringIO()
     # call scatter which will print to console
@@ -21,7 +22,6 @@ def test_scatter():
     assert output == '             ••\n         ••••  \n      •••      \n  ••••         \n••             \n\n'
 
 def test_bar():
-    import sys, io
     stdout = sys.stdout
     sys.stdout = io.StringIO()
     bar([300, 400, 200, 80, 500], ['A', 'B', 'C', 'D', 'E'])
