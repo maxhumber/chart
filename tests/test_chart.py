@@ -1,6 +1,6 @@
 import sys, io
 
-from chart import RangeScaler, scatter, bar
+from chart import RangeScaler, NumberBinarizer
 from chart import bar, scatter
 
 def test_range_scaler():
@@ -9,6 +9,11 @@ def test_range_scaler():
     rs.fit(x)
     result = rs.transform(x)
     assert result == [3, 5, 10, 9, 8, 4]
+
+def test_number_binarizer():
+    nb = NumberBinarizer(bins=4)
+    result = nb.fit_transform(range(10))
+    assert result == [0, 0, 1, 1, 2, 2, 3, 3, 4, 4]
 
 def test_scatter():
     # redirect sys.stdout to a buffer

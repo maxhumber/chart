@@ -1,3 +1,18 @@
+'''
+                                                   _
+                                                  (_)
+  _ __  _ __ ___ _ __  _ __ ___   ___ ___  ___ ___ _ _ __   __ _
+ | '_ \| '__/ _ \ '_ \| '__/ _ \ / __/ _ \/ __/ __| | '_ \ / _` |
+ | |_) | | |  __/ |_) | | | (_) | (_|  __/\__ \__ \ | | | | (_| |
+ | .__/|_|  \___| .__/|_|  \___/ \___\___||___/___/_|_| |_|\__, |
+ | |            | |                                         __/ |
+ |_|            |_|                                        |___/
+
+'''
+
+def scale(x, o=(0, 100), i=(0, 1)):
+    return (x - i[0]) / (i[1] - i[0]) * (o[1] - o[0]) + o[0]
+
 class RangeScaler:
     '''A scaler to coerce values to a target output range
 
@@ -30,10 +45,16 @@ class RangeScaler:
         self.fit(y)
         return self.transform(y)
 
-def scale(x, o=(0, 100), i=(0, 1)):
-    return (x - i[0]) / (i[1] - i[0]) * (o[1] - o[0]) + o[0]
+def bin(x, b, o=(0, 100)):
+    return int(b * ((x - o[0]) / (o[1] - o[0])))
 
-class Binarizer:
+class NumberBinarizer:
+    '''A binarizer to cut values into equal-width bins
+
+    >>> x = range(10)
+    >>> NumberBinarizer(4).fit_transform(x)
+    [0, 0, 0, 1, 1, 2, 2, 3, 3, 3]
+    '''
     def __init__(self, bins=5):
         self.bins = bins
 
@@ -43,13 +64,10 @@ class Binarizer:
         return self
 
     def transform(self, y):
-        y = [bin(yi, self.bins, self.min_, self.max_) for yi in y]
+        y = [bin(yi, self.bins, (self.min_, self.max_)) for yi in y]
         y = [yi - 1 if yi == self.bins else yi for yi in y]
         return y
 
     def fit_transform(self, y):
         self.fit(y)
         return self.transform(y)
-
-def bin(x, bins, min_, max_):
-    return int(bins * ((x - min_) / (max_ - min_)))
