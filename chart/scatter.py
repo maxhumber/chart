@@ -19,7 +19,10 @@ def matrix_to_string(matrix):
     return string
 
 def scatter(x, y, width=40, height=None, mark='•'):
-    '''Create a simple scattter plot'''
+    '''
+    Create a simple scattter plot
+    >>> scatter(range(0, 20), range(0, 20))
+    '''
     if not height:
         height = int(width / 3 // 1)
     matrix = [[' '] * width for _ in range(height)]

@@ -29,12 +29,12 @@ def bar(x, y, width=30, label_width=None, mark='▇'):
     :param mark: unicode symbol to mark data values
 
     >>> from chart import bar
-    >>> bar(x = [100, 80, 20, 60], ['A', 'B', 'C', 'D'])
+    >>> bar(x=[100, 80, 20, 60], y=['A', 'B', 'C', 'D'])
     '''
     if not label_width:
         label_width = max([len(l) for l in y])
     labels = [create_label(l, label_width) for l in y]
-    values = RangeScaler((0, width)).fit_transform(x)
+    values = RangeScaler((0, width), 0).fit_transform(x)
     values = [round(v) for v in values]
     chart = ''
     for value, label in zip(values, labels):

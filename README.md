@@ -7,7 +7,6 @@ Under Active Development
 ---
 
 TODO:
-- Fix the rangescaler bug
 - add annotations to bar
 - add stuff at bottom and side of scatter
 - add examples
