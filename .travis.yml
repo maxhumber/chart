@@ -6,5 +6,10 @@ deploy:
   user: maxhumber
   password:
     secure: HJKF+hLOy+DFyDrC4Rlz7zVmgt+fVXZ4ISXB8OiXndNO0Y4VLCI9Rvd0OEz8TiPM0dfEIyW8132Jns69Ldn1wTDWz8u3cZVRjzJNOs7zszF7+T0VnNMo6zbnihgoOYieyi13vcdd+tCifbkV1jokuMrpu05WZKaM6Ym0YUBrqdRn5txXmuExvTtS6opkwr/Uz6vTArJTLtoI9VcxdCWfu7saDumiljJOy/ui3Hxt2QnP57tEgBTCR7Z3wLCSHR5ifgCoLq55igB1dui+OrzPfUYmFhG/HUwRMN4KpBkXr+42cHgNpycUxLcgD3y+GYzchdPIg8uqxMeIaa4ZTz7BZFehH7GiZ9k5XhOs8t1hhbBvEV2/lnMfTD3OfrD70QmKyyN6bX874QknYnsCVOYa3dkngYlqtyrLSlIpbjWhTqDrBTrmGx1RBedK4XwmupjKUqEUXsiFSIrWbYelR7A724UvvyqMmj2uEbJ2A30NvbkyYz1DdsGZp1VJRePaapuS95QzD1sGIzqK9Q573FRhfC/FV8g1Yoed0vcxGkAhDQkMTE+aoIQfz6n8ZmMJAsaiNXcjeVxB0yjevElbG5NGGjgd/4lUWvncQ1YRD9vBcRRTY4j9j6C84hExVztSG1cbOnslDA/kAxWmRYe76RP2JfU7dhvHQMV2KTsMxOfjksw=
+
 install:
-- pip install -e .
+  - "pip install -e ."
+  - "pip install pytest"
+
+script:
+  - ls
