@@ -49,7 +49,7 @@ def bin(x, b, o=(0, 100)):
     return int(b * ((x - o[0]) / (o[1] - o[0])))
 
 class NumberBinarizer:
-    '''A binarizer to cut values into equal-width bins
+    '''A binarizer that cuts values into equal-width bins
 
     >>> x = range(10)
     >>> NumberBinarizer(4).fit_transform(x)

@@ -6,7 +6,20 @@ except ModuleNotFoundError:
 
 def scatter(x, y, width=40, height=None, mark='•'):
     '''A simple scatter plot that prints to the console
-    >>> scatter(range(0, 20), range(0, 20))
+
+    :param x: list, array or series of numeric values
+    :param y: list, array or series of numeric values
+    :param width: integer for the character length of the x values
+    :param height: integer for the character length of the y values
+    :param mark: unicode symbol to mark data values
+
+    >>> from chart import scatter
+    >>> scatter(range(0, 20), range(0, 20), width=15)
+                 ••
+             ••••
+          •••
+      ••••
+    ••
     '''
     if not height:
         height = int(width / 3 // 1)

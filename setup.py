@@ -5,12 +5,12 @@ with open('README.md') as f:
 
 setup(
     name='chart',
-    version='0.1.4',
+    version='0.2.0',
     description='chart',
     long_description=long_description,
     long_description_content_type="text/markdown",
     classifiers=[
-        'Development Status :: 3 - Alpha',
+        'Development Status :: 4 - Beta',
         'Intended Audience :: Developers',
         'Intended Audience :: Education',
         'Intended Audience :: Science/Research',
@@ -22,7 +22,9 @@ setup(
         'Topic :: Scientific/Engineering :: Visualization',
     ],
     keywords=[
-        'chart', 'graph', 'bar', 'scatter', 'visualization'
+        'chart', 'plot', 'graph', 'print',
+        'visualize', 'visualization', 'vis',
+        'bar', 'histogram', 'scatter'
     ],
     url='https://github.com/maxhumber/chart',
     author='Max Humber',
