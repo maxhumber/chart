@@ -28,19 +28,23 @@ def bar(x, y, width=30, label_width=None, mark='▇'):
     :param mark: unicode symbol to mark data values
 
     >>> from chart import bar
-    >>> bar(x=[100, 80, 20, 60], y=['A', 'B', 'C', 'D'])
-    A: ▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇
-    B: ▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇
-    C: ▇▇▇▇▇▇
-    D: ▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇
-    >>> bar(
-        x=[1e6, 5e6, 3e6, 1e7],
-        y=['Carlisle', 'Waterloo', 'Exeter', 'Toronto'],
-        mark='🍑', width=15, label_width=9)
-     Carlisle: 🍑🍑
-     Waterloo: 🍑🍑🍑🍑🍑🍑🍑🍑
-       Exeter: 🍑🍑🍑🍑
-      Toronto: 🍑🍑🍑🍑🍑🍑🍑🍑🍑🍑🍑🍑🍑🍑🍑
+    >>> x = [500, 200, 900, 400]
+    >>> y = ['marc', 'mummify', 'chart', 'sausagelink']
+    >>> bar(x, y)
+           marc: ▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇
+        mummify: ▇▇▇▇▇▇▇
+          chart: ▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇
+    sausagelink: ▇▇▇▇▇▇▇▇▇▇▇▇▇
+
+    >>> import pandas as pd
+    >>> df = pd.DataFrame({
+        'artist': ['Tame Impala', 'Childish Gambino', 'The Knocks'],
+        'listens': [8_456_831, 18_185_245, 2_556_448]
+    })
+    >>> bar(df.listens, df.artist, width=20, label_width=11, mark='🔊')
+    Tame Impala: 🔊🔊🔊🔊🔊🔊🔊🔊🔊
+    Childish Ga: 🔊🔊🔊🔊🔊🔊🔊🔊🔊🔊🔊🔊🔊🔊🔊🔊🔊🔊🔊🔊
+     The Knocks: 🔊🔊🔊                 
     '''
     if not label_width:
         label_width = max([len(l) for l in y])

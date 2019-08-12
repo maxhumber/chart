@@ -13,12 +13,31 @@ def histogram(x, bins=5, height=10, mark='▇'):
     :param mark: unicode symbol to mark data values
 
     >>> from chart import histogram
-    >>> histogram([6, 6, 1, 2, 9, 1, 4, 8, 9], bins=4, height=5)
-    ▇     ▇
-    ▇     ▇
-    ▇   ▇ ▇
-    ▇ ▇ ▇ ▇
-    ▇ ▇ ▇ ▇
+    >>> x = [1, 2, 4, 3, 3, 1, 7, 9, 9, 1, 3, 2, 1, 2]
+    >>> histogram(x)
+    ▇
+    ▇
+    ▇
+    ▇
+    ▇ ▇
+    ▇ ▇
+    ▇ ▇
+    ▇ ▇     ▇
+    ▇ ▇     ▇
+    ▇ ▇   ▇ ▇
+
+    >>> import scipy.stats as stats
+    >>> import numpy as np
+    >>> np.random.seed(14)
+    >>> n = stats.norm(loc=0, scale=10)
+    >>> histogram(n.rvs(100), bins=14, height=7, mark='🍑')
+                🍑
+                🍑   🍑
+                🍑 🍑 🍑
+                🍑 🍑 🍑
+            🍑   🍑 🍑 🍑
+          🍑 🍑 🍑 🍑 🍑 🍑 🍑 🍑 🍑
+          🍑 🍑 🍑 🍑 🍑 🍑 🍑 🍑 🍑   🍑
     '''
     binned_x = NumberBinarizer(bins).fit_transform(x)
     counter = {x: 0 for x in range(bins)}

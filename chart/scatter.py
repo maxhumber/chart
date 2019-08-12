@@ -14,12 +14,39 @@ def scatter(x, y, width=40, height=None, mark='•'):
     :param mark: unicode symbol to mark data values
 
     >>> from chart import scatter
-    >>> scatter(range(0, 20), range(0, 20), width=15)
-                 ••
-             ••••
-          •••
-      ••••
-    ••
+    >>> x = range(0, 20)
+    >>> y = range(0, 20)
+    >>> scatter(x, y)
+                                           •
+                                       • •
+                                     •
+                                 • •
+                             • •
+                           •
+                      •  •
+                    •
+                • •
+            • •
+          •
+      • •
+    •
+
+    >>> import numpy as np
+    >>> np.random.seed(1)
+    >>> N = 100
+    >>> x = np.random.normal(100, 50, size=N)
+    >>> y = x * -2 + 25 + np.random.normal(0, 25, size=N)
+    >>> scatter(x, y, width=20, height=9, mark='^')
+
+    ^^
+     ^
+        ^^^
+        ^^^^^^^
+           ^^^^^^
+            ^^^^^^^
+                ^^^^
+                 ^^^^^ ^
+                    ^^ ^
     '''
     if not height:
         height = int(width / 3 // 1)

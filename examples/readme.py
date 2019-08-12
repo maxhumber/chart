@@ -7,7 +7,7 @@ from chart.preprocessing import RangeScaler
 from chart import bar
 
 x = [500, 200, 900, 400]
-y = ['mark', 'mummify', 'chart', 'sausagelink']
+y = ['marc', 'mummify', 'chart', 'sausagelink']
 
 bar(x, y)
 
@@ -35,10 +35,12 @@ histogram(x)
 
 from chart import histogram
 import scipy.stats as stats
+import numpy as np
 
+np.random.seed(14)
 n = stats.norm(loc=0, scale=10)
 
-histogram(n.rvs(100), bins=20, height=8, mark='#')
+histogram(n.rvs(100), bins=14, height=7, mark='🍑')
 
 # Example 3A
 
@@ -57,7 +59,7 @@ import numpy as np
 np.random.seed(1)
 N = 100
 x = np.random.normal(100, 50, size=N)
-y = x * 2 - 25 + np.random.normal(0, 25, size=N)
+y = x * -2 + 25 + np.random.normal(0, 25, size=N)
 
 scatter(x, y, width=20, height=9, mark='^')
 
@@ -75,13 +77,3 @@ from chart.preprocessing import RangeScaler
 rs = RangeScaler(out_range=(0, 10), round=False)
 x = range(50, 59)
 rs.fit_transform(x)
-
-
-
-
-
-
-
-
-
-#
