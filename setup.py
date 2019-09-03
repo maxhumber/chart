@@ -1,11 +1,11 @@
 from setuptools import setup
 
-with open('README.md') as f:
+with open('README.md', encoding='utf8') as f:
     long_description = f.read()
 
 setup(
     name='chart',
-    version='0.2.2',
+    version='0.2.3',
     description='chart',
     long_description=long_description,
     long_description_content_type="text/markdown",
